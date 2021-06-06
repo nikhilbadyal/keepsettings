@@ -12,7 +12,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  settings_ui: <latest-version>
+  keepsettings: <latest-version>
 ```
 
 Then in dart file , do
