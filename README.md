@@ -12,7 +12,7 @@ In your pubspec.yaml
 
 ```yaml
 dependencies:
-  settings_ui: <latest-version>
+  keepsettings: <latest-version>
 ```
 
 Then in dart file , do
@@ -20,6 +20,11 @@ Then in dart file , do
 ```
 import 'package:keepsettings/keepsettings.dart';
 ```
+
+## Extra Features
+
++ Support for checkList Tiles
++ Support for RadioButtons
 
 ## Basic Usage:
 
