@@ -23,7 +23,7 @@ const defaultCupertinoForwardPadding = EdgeInsetsDirectional.only(
 );
 
 class SettingsTile extends StatelessWidget {
-  SettingsTile({
+  const SettingsTile({
     required this.title,
     this.titleMaxLines,
     this.subtitle,
@@ -39,8 +39,7 @@ class SettingsTile extends StatelessWidget {
     this.onPressed,
     this.switchActiveColor,
     Key? key,
-  })
-      : _tileType = _SettingsTileType.simple,
+  })  : _tileType = _SettingsTileType.simple,
         onToggle = null,
         switchValue = null,
         onChanged = null,
@@ -76,8 +75,7 @@ class SettingsTile extends StatelessWidget {
     this.subtitleTextStyle,
     this.switchActiveColor,
     Key? key,
-  })
-      : _tileType = _SettingsTileType.switchTile,
+  })  : _tileType = _SettingsTileType.switchTile,
         onTap = null,
         onPressed = null,
         iosChevron = null,
@@ -158,21 +156,18 @@ class SettingsTile extends StatelessWidget {
   final _SettingsTileType _tileType;
   final double initialSliderValue;
 
-  final Color? activeColor;
   final Color inactiveColor;
-  final Color? switchButtonColor;
+  final Color switchButtonColor;
   final bool isSwitchDisabled;
-  final double? switchHeight;
-  final double? switchWidth;
+  final double switchHeight;
+  final double switchWidth;
   final String activeText;
-  final TogglerShape? togglerShape;
-  final BoxShape? boxShape;
-
   final String inactiveText;
-
   final Color activeTextColor;
-
   final Color inactiveTextColor;
+  final Color? activeColor;
+  final BoxShape? boxShape;
+  final TogglerShape? togglerShape;
 
   @override
   Widget build(BuildContext context) {
@@ -187,6 +182,15 @@ class SettingsTile extends StatelessWidget {
           value: switchValue!,
           onChanged: enabled ? onToggle : null,
           activeColor: switchActiveColor,
+          inactiveColor: inactiveColor,
+          activeText: activeText,
+          inactiveText: inactiveText,
+          activeTextColor: activeTextColor,
+          inactiveTextColor: inactiveColor,
+          switchHeight: switchHeight,
+          switchWidth: switchWidth,
+          switchButtonColor: switchButtonColor,
+          togglerShape: togglerShape,
         ),
         title: Text(
           title,
