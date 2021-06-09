@@ -1,18 +1,26 @@
 name: keepsettings
-description: Settings UI
-version: 0.0.1
+description: A Plug and Play package for settings. Just pass the required (supported ones ) widget and have a nice looking setting UI. Supported Widgets are
+  1. List Tiles
+  2. Switch Tile
+  3. Radio Buttons
+  4. CheckBox List
+  5. Slider
+version: 0.0.2
 homepage: https://github.com/ProblematicDude/keepsettings
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
   flutter: ">=1.17.0"
 
+
 dependencies:
   flutter:
     sdk: flutter
+  keepswitch: ^0.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  pedantic: ^1.11.0
 
 flutter:

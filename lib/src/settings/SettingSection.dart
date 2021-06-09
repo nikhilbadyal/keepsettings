@@ -17,7 +17,7 @@ class TilesSection extends AbstractSection {
 
   Widget androidSection(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 3,top: 5),
+      padding: const EdgeInsets.only(bottom: 3, top: 5),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         if (title != null)
           Padding(

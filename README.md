@@ -1,10 +1,17 @@
 # Settings UI for Flutter
 
-<p align="center">
-  <img src="https://i.imgur.com/cSWCUsd.png" height="250px" alt="">
-  <img src="https://i.imgur.com/N7dSrF9.png" height="250px" alt="">
-  <img src="https://i.imgur.com/4POezmu.png" height="250px" alt="">
-</p>
+<img src="https://i.imgur.com/cSWCUsd.png" height="750px" alt="">
+<br>
+<br>
+<br>
+<img src="https://i.imgur.com/N7dSrF9.png" height="750px" alt="">
+<br>
+<br>
+<br>
+<img src="https://i.imgur.com/4POezmu.png" height="750px" alt="">
+<br>
+<br>
+<br>
 
 ## Installing:
 

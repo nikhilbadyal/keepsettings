@@ -1,19 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:keepswitch/keepswitch.dart';
 
 enum _SettingsTileType { simple, switchTile, checkListTile }
 
 const Color mediumGrayColor = Color(0xFFC7C7CC);
-const Color itemPressedColor = Color(0xFFD9D9D9);
-const Color borderColor = Color(0xFFBCBBC1);
-const Color borderLightColor = Color.fromRGBO(49, 44, 51, 1);
-const Color backgroundGray = Color(0xFFEFEFF4);
-const Color groupSubtitle = Color(0xFF777777);
-const Color iosTileDarkColor = Color.fromRGBO(28, 28, 30, 1);
-const Color iosPressedTileColorDark = Color.fromRGBO(44, 44, 46, 1);
-const Color iosPressedTileColorLight = Color.fromRGBO(230, 229, 235, 1);
-
 const defaultTitlePadding = EdgeInsets.only(
   left: 15,
   right: 15,
@@ -31,7 +23,7 @@ const defaultCupertinoForwardPadding = EdgeInsetsDirectional.only(
 );
 
 class SettingsTile extends StatelessWidget {
-  const SettingsTile({
+  SettingsTile({
     required this.title,
     this.titleMaxLines,
     this.subtitle,
@@ -47,10 +39,25 @@ class SettingsTile extends StatelessWidget {
     this.onPressed,
     this.switchActiveColor,
     Key? key,
-  })  : _tileType = _SettingsTileType.simple,
+  })
+      : _tileType = _SettingsTileType.simple,
         onToggle = null,
         switchValue = null,
         onChanged = null,
+        onSliderChange = null,
+        inactiveColor = Colors.grey,
+        isSwitchDisabled = false,
+        activeText = 'On',
+        inactiveText = 'Off',
+        activeTextColor = Colors.white,
+        inactiveTextColor = Colors.white,
+        initialSliderValue = 0.0,
+        boxShape = null,
+        togglerShape = null,
+        activeColor = Colors.white,
+        switchButtonColor = Colors.white,
+        switchHeight = 0,
+        switchWidth = 0,
         assert(titleMaxLines == null || titleMaxLines > 0, 'Error'),
         assert(subtitleMaxLines == null || subtitleMaxLines > 0, 'Error'),
         super(key: key);
@@ -69,36 +76,65 @@ class SettingsTile extends StatelessWidget {
     this.subtitleTextStyle,
     this.switchActiveColor,
     Key? key,
-  })  : _tileType = _SettingsTileType.switchTile,
+  })
+      : _tileType = _SettingsTileType.switchTile,
         onTap = null,
         onPressed = null,
         iosChevron = null,
+        onSliderChange = null,
+        initialSliderValue = 0.0,
         onChanged = null,
         iosChevronPadding = null,
+        inactiveColor = Colors.grey,
+        isSwitchDisabled = false,
+        activeText = 'On',
+        inactiveText = 'Off',
+        activeTextColor = Colors.white,
+        inactiveTextColor = Colors.white,
+        boxShape = null,
+        togglerShape = null,
+        activeColor = Colors.white,
+        switchButtonColor = Colors.white,
+        switchHeight = 0,
+        switchWidth = 0,
         assert(titleMaxLines == null || titleMaxLines > 0, 'Error'),
         assert(subtitleMaxLines == null || subtitleMaxLines > 0, 'Error'),
         super(key: key);
 
-  const SettingsTile.checkListTile(
-      {required this.onChanged,
-      required this.enabled,
-      required this.title,
-      this.titleMaxLines,
-      this.subtitle,
-      this.subtitleMaxLines,
-      this.leading,
-      this.trailing,
-      this.iosChevron,
-      this.iosChevronPadding,
-      this.onTap,
-      this.onPressed,
-      this.onToggle,
-      this.switchValue,
-      this.titleTextStyle,
-      this.subtitleTextStyle,
-      this.switchActiveColor,
-      Key? key})
-      : _tileType = _SettingsTileType.checkListTile,
+  const SettingsTile.checkListTile({
+    required this.onChanged,
+    required this.enabled,
+    required this.title,
+    this.titleMaxLines,
+    this.subtitle,
+    this.subtitleMaxLines,
+    this.leading,
+    this.trailing,
+    this.iosChevron,
+    this.iosChevronPadding,
+    this.onTap,
+    this.onPressed,
+    this.onToggle,
+    this.switchValue,
+    this.titleTextStyle,
+    this.subtitleTextStyle,
+    this.switchActiveColor,
+    Key? key,
+  })  : _tileType = _SettingsTileType.checkListTile,
+        onSliderChange = null,
+        initialSliderValue = 0.0,
+        inactiveColor = Colors.grey,
+        isSwitchDisabled = false,
+        activeText = 'On',
+        inactiveText = 'Off',
+        activeTextColor = Colors.white,
+        inactiveTextColor = Colors.white,
+        boxShape = null,
+        togglerShape = null,
+        activeColor = Colors.white,
+        switchButtonColor = Colors.white,
+        switchHeight = 0,
+        switchWidth = 0,
         super(key: key);
 
   final ValueChanged<bool?>? onChanged;
@@ -113,12 +149,30 @@ class SettingsTile extends StatelessWidget {
   final VoidCallback? onTap;
   final Function(BuildContext context)? onPressed;
   final Function(bool value)? onToggle;
+  final Function(double value)? onSliderChange;
   final bool? switchValue;
   final bool enabled;
   final TextStyle? titleTextStyle;
   final TextStyle? subtitleTextStyle;
   final Color? switchActiveColor;
   final _SettingsTileType _tileType;
+  final double initialSliderValue;
+
+  final Color? activeColor;
+  final Color inactiveColor;
+  final Color? switchButtonColor;
+  final bool isSwitchDisabled;
+  final double? switchHeight;
+  final double? switchWidth;
+  final String activeText;
+  final TogglerShape? togglerShape;
+  final BoxShape? boxShape;
+
+  final String inactiveText;
+
+  final Color activeTextColor;
+
+  final Color inactiveTextColor;
 
   @override
   Widget build(BuildContext context) {
@@ -127,11 +181,13 @@ class SettingsTile extends StatelessWidget {
 
   Widget tile(BuildContext context) {
     if (_tileType == _SettingsTileType.switchTile) {
-      return SwitchListTile(
-        secondary: leading,
-        value: switchValue!,
-        activeColor: switchActiveColor,
-        onChanged: enabled ? onToggle : null,
+      return ListTile(
+        leading: leading,
+        trailing: KeepSwitch(
+          value: switchValue!,
+          onChanged: enabled ? onToggle : null,
+          activeColor: switchActiveColor,
+        ),
         title: Text(
           title,
           style: titleTextStyle,
@@ -141,7 +197,7 @@ class SettingsTile extends StatelessWidget {
         subtitle: subtitle != null
             ? Text(
                 subtitle!,
-                style: subtitleTextStyle,
+                style: subtitleTextStyle ?? titleTextStyle,
                 maxLines: subtitleMaxLines,
                 overflow: TextOverflow.ellipsis,
               )
@@ -150,15 +206,26 @@ class SettingsTile extends StatelessWidget {
     } else if (_tileType == _SettingsTileType.checkListTile) {
       return CheckboxListTile(
         secondary: leading,
-        title: Text(
-          title,
-          style: titleTextStyle,
-          maxLines: titleMaxLines,
-          overflow: TextOverflow.ellipsis,
-        ),
         value: enabled,
-        onChanged: onChanged,
         activeColor: Theme.of(context).accentColor,
+        onChanged: onChanged,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 4),
+          child: Text(
+            title,
+            style: titleTextStyle,
+            maxLines: titleMaxLines,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        subtitle: subtitle != null
+            ? Text(
+                subtitle!,
+                style: subtitleTextStyle,
+                maxLines: subtitleMaxLines,
+                overflow: TextOverflow.ellipsis,
+              )
+            : null,
       );
     } else {
       return ListTile(

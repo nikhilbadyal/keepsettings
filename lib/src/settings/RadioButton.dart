@@ -2,20 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:keepsettings/src/settings/AbstractSection.dart';
 import 'package:keepsettings/src/settings/SettingsTiles.dart';
 
+/// Represent a radio button in Radio Button section
 class RadioButton<T> extends StatelessWidget {
-  const RadioButton(
-      {required this.label,
-      required this.groupValue,
-      required this.value,
-      required this.onChanged,
-      this.padding = const EdgeInsets.symmetric(horizontal: 5),
-      Key? key})
-      : super(key: key);
+  /// Constructor
+  const RadioButton({
+    required this.label,
+    required this.groupValue,
+    required this.value,
+    required this.onChanged,
+    this.padding = const EdgeInsets.symmetric(horizontal: 5),
+    this.activeColor,
+    Key? key,
+    this.secondary,
+    this.listTileControlAffinity = ListTileControlAffinity.leading,
+    this.subLabel,
+  }) : super(key: key);
+
+  /// Radio button label/description
   final String label;
+
+  /// Radio button sub-label
+  final String? subLabel;
+
+  /// To pad the label
   final EdgeInsets padding;
+
+  /// Group value
   final T groupValue;
   final T value;
   final void Function(T?) onChanged;
+  final Color? activeColor;
+  final Widget? secondary;
+  final ListTileControlAffinity listTileControlAffinity;
 
   @override
   Widget build(BuildContext context) {
@@ -25,22 +43,30 @@ class RadioButton<T> extends StatelessWidget {
           onChanged(value);
         }
       },
-      child: Padding(
-        padding: padding,
-        child: Row(
-          children: <Widget>[
-            Radio<T>(
-              activeColor: Theme.of(context).accentColor,
-              groupValue: groupValue,
-              value: value,
-              onChanged: onChanged,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Text(label),
-            ),
-          ],
+      child: RadioListTile<T>(
+        controlAffinity: listTileControlAffinity,
+        onChanged: onChanged,
+        groupValue: groupValue,
+        secondary: Padding(
+          padding: const EdgeInsets.only(right: 15),
+          child: secondary,
         ),
+        activeColor: activeColor ?? Theme.of(context).accentColor,
+        value: value,
+        title: Padding(
+          padding: const EdgeInsets.only(left: 15),
+          child: Text(
+            label,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        subtitle: subLabel != null
+            ? Text(
+                subLabel!,
+                overflow: TextOverflow.ellipsis,
+              )
+            : null,
+        contentPadding: padding,
       ),
     );
   }
