@@ -5,6 +5,8 @@ import 'package:keepswitch/keepswitch.dart';
 
 enum _SettingsTileType { simple, switchTile, checkListTile }
 
+enum TogglerShapes { Heart }
+
 const Color mediumGrayColor = Color(0xFFC7C7CC);
 const defaultTitlePadding = EdgeInsets.only(
   left: 15,
@@ -49,7 +51,7 @@ class SettingsTile extends StatelessWidget {
         activeText = 'On',
         inactiveText = 'Off',
         activeTextColor = Colors.white,
-        inactiveTextColor = Colors.white,
+        inactiveTextColor = Colors.red,
         initialSliderValue = 0.0,
         boxShape = null,
         togglerShape = null,
@@ -80,8 +82,8 @@ class SettingsTile extends StatelessWidget {
     this.inactiveColor = Colors.grey,
     this.activeText = 'On',
     this.inactiveText = 'Off',
-    this.activeTextColor = Colors.white70,
-    this.inactiveTextColor = Colors.white70,
+    this.activeTextColor = Colors.white,
+    this.inactiveTextColor = Colors.white,
     this.isSwitchDisabled = false,
     this.switchHeight = 27,
     this.switchWidth = 55,
@@ -124,7 +126,7 @@ class SettingsTile extends StatelessWidget {
         inactiveColor = Colors.grey,
         isSwitchDisabled = false,
         activeText = 'On',
-        inactiveText = 'Off',
+        inactiveText = 'f',
         activeTextColor = Colors.white,
         inactiveTextColor = Colors.white,
         boxShape = null,
@@ -167,7 +169,7 @@ class SettingsTile extends StatelessWidget {
   final Color inactiveTextColor;
   final Color? activeColor;
   final BoxShape? boxShape;
-  final TogglerShape? togglerShape;
+  final TogglerShapes? togglerShape;
 
   @override
   Widget build(BuildContext context) {
@@ -176,6 +178,10 @@ class SettingsTile extends StatelessWidget {
 
   Widget tile(BuildContext context) {
     if (_tileType == _SettingsTileType.switchTile) {
+      TogglerShape? shape;
+      if (togglerShape != null) {
+        shape = getType();
+      }
       return ListTile(
         leading: leading,
         trailing: KeepSwitch(
@@ -186,11 +192,12 @@ class SettingsTile extends StatelessWidget {
           activeText: activeText,
           inactiveText: inactiveText,
           activeTextColor: activeTextColor,
-          inactiveTextColor: inactiveColor,
+          inactiveTextColor: inactiveTextColor,
           switchHeight: switchHeight,
           switchWidth: switchWidth,
           switchButtonColor: switchButtonColor,
-          togglerShape: togglerShape,
+          togglerShape: shape,
+          boxShape: boxShape,
         ),
         title: Text(
           title,
@@ -260,4 +267,13 @@ class SettingsTile extends StatelessWidget {
               }
             }
           : null;
+
+  TogglerShape getType() {
+    switch (togglerShape) {
+      case TogglerShapes.Heart:
+        return TogglerShape.Heart;
+      default:
+        return TogglerShape.Heart;
+    }
+  }
 }
