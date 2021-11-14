@@ -77,7 +77,7 @@ Widget settingsList() {
             SettingsTile.switchTile(
               title: ' Dark Mode',
               leading: Icon(CupertinoIcons.cloud_sun, color: iconColor),
-              switchActiveColor: Theme.of(context).accentColor,
+              switchActiveColor: Theme.of(context).colorScheme.secondary,
               switchValue: tileManager,
               onToggle: toggleDarkMode,
             ),

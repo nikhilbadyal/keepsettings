@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:keepsettings/src/settings/AbstractSection.dart';
-import 'package:keepsettings/src/settings/SettingsTiles.dart';
+import 'package:keepsettings/src/settings/abstract_section.dart';
+import 'package:keepsettings/src/settings/settings_tiles.dart';
 
 /// Represent a radio button in Radio Button section
 class RadioButton<T> extends StatelessWidget {
@@ -51,12 +51,15 @@ class RadioButton<T> extends StatelessWidget {
           padding: const EdgeInsets.only(right: 15),
           child: secondary,
         ),
-        activeColor: activeColor ?? Theme.of(context).accentColor,
+        activeColor: activeColor ?? Theme.of(context).colorScheme.secondary,
         value: value,
         title: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: Text(
             label,
+            style: TextStyle(
+                color: Theme.of(context).textTheme.headline1!.color,
+                fontWeight: FontWeight.w300),
             overflow: TextOverflow.ellipsis,
           ),
         ),
@@ -90,7 +93,7 @@ class RadioButtonSection extends AbstractSection {
             child: Text(
               title!,
               style: TextStyle(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).textTheme.headline1!.color,
                 fontWeight: FontWeight.bold,
               ),
               overflow: TextOverflow.ellipsis,

@@ -16,11 +16,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  keepswitch: ^0.0.4
+  keepswitch: ^0.0.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  pedantic: ^1.11.0
+  lints: ^1.0.1
 
 flutter:

@@ -5,7 +5,7 @@ import 'package:keepswitch/keepswitch.dart';
 
 enum _SettingsTileType { simple, switchTile, checkListTile }
 
-enum TogglerShapes { Heart }
+enum TogglerShapes { heart }
 
 const Color mediumGrayColor = Color(0xFFC7C7CC);
 const defaultTitlePadding = EdgeInsets.only(
@@ -201,14 +201,21 @@ class SettingsTile extends StatelessWidget {
         ),
         title: Text(
           title,
-          style: titleTextStyle,
+          style: titleTextStyle ??
+              TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                  fontWeight: FontWeight.w300),
           maxLines: titleMaxLines,
           overflow: TextOverflow.ellipsis,
         ),
         subtitle: subtitle != null
             ? Text(
-                subtitle!,
-                style: subtitleTextStyle ?? titleTextStyle,
+          subtitle!,
+                style: subtitleTextStyle ??
+                    titleTextStyle ??
+                    TextStyle(
+                        color: Theme.of(context).textTheme.headline1!.color,
+                        fontWeight: FontWeight.w300),
                 maxLines: subtitleMaxLines,
                 overflow: TextOverflow.ellipsis,
               )
@@ -218,21 +225,28 @@ class SettingsTile extends StatelessWidget {
       return CheckboxListTile(
         secondary: leading,
         value: enabled,
-        activeColor: Theme.of(context).accentColor,
+        activeColor: Theme.of(context).colorScheme.secondary,
         onChanged: onChanged,
         title: Padding(
           padding: const EdgeInsets.only(left: 4),
           child: Text(
             title,
-            style: titleTextStyle,
+            style: titleTextStyle ??
+                TextStyle(
+                    color: Theme.of(context).textTheme.headline1!.color,
+                    fontWeight: FontWeight.w300),
             maxLines: titleMaxLines,
             overflow: TextOverflow.ellipsis,
           ),
         ),
         subtitle: subtitle != null
             ? Text(
-                subtitle!,
-                style: subtitleTextStyle,
+          subtitle!,
+                style: subtitleTextStyle ??
+                    titleTextStyle ??
+                    TextStyle(
+                        color: Theme.of(context).textTheme.headline1!.color,
+                        fontWeight: FontWeight.w300),
                 maxLines: subtitleMaxLines,
                 overflow: TextOverflow.ellipsis,
               )
@@ -240,11 +254,21 @@ class SettingsTile extends StatelessWidget {
       );
     } else {
       return ListTile(
-        title: Text(title, style: titleTextStyle),
+        title: Text(
+          title,
+          style: titleTextStyle ??
+              TextStyle(
+                  color: Theme.of(context).textTheme.headline1!.color,
+                  fontWeight: FontWeight.w300),
+        ),
         subtitle: subtitle != null
             ? Text(
                 subtitle!,
-                style: subtitleTextStyle,
+                style: subtitleTextStyle ??
+                    titleTextStyle ??
+                    TextStyle(
+                        color: Theme.of(context).textTheme.headline1!.color,
+                        fontWeight: FontWeight.w300),
                 maxLines: subtitleMaxLines,
                 overflow: TextOverflow.ellipsis,
               )
@@ -270,7 +294,7 @@ class SettingsTile extends StatelessWidget {
 
   TogglerShape getType() {
     switch (togglerShape) {
-      case TogglerShapes.Heart:
+      case TogglerShapes.heart:
         return TogglerShape.Heart;
       default:
         return TogglerShape.Heart;

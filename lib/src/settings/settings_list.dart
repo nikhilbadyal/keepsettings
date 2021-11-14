@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:keepsettings/src/settings/AbstractSection.dart';
+import 'package:keepsettings/src/settings/abstract_section.dart';
 
 class SettingsList extends StatelessWidget {
   const SettingsList({Key? key, this.sections, this.appInfo}) : super(key: key);

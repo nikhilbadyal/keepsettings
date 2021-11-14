@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:keepsettings/src/settings/AbstractSection.dart';
-import 'package:keepsettings/src/settings/SettingsTiles.dart';
+import 'package:keepsettings/src/settings/abstract_section.dart';
+import 'package:keepsettings/src/settings/settings_tiles.dart';
 
 // ignore: must_be_immutable
 class TilesSection extends AbstractSection {
@@ -25,7 +25,7 @@ class TilesSection extends AbstractSection {
             child: Text(
               title!,
               style: TextStyle(
-                color: Theme.of(context).accentColor,
+                color: Theme.of(context).textTheme.headline1!.color,
                 fontWeight: FontWeight.bold,
               ),
               overflow: TextOverflow.ellipsis,
